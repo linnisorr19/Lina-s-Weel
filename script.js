@@ -1,3 +1,19 @@
+const supabase = window.supabase.createClient(
+    "https://bvfodovckettkyymnvia.supabase.co","sb_publishable_WMsP5hZc79npsTypDUt-wg_00PoNgwD"
+    async function salveazaPremiu(premiu) {
+    const { error } = await supabase
+        .from("spin_codes")
+        .insert([
+            {
+                prize: premiu
+            }
+        ]);
+
+    if (error) {
+        console.error(error);
+    }
+}
+);
 const wheel = document.getElementById("wheel");
 const spin = document.getElementById("spin");
 const spinSound = document.getElementById("spinSound");
@@ -27,7 +43,7 @@ function alegePremiu() {
   return premii[0];
 }
 
-spin.addEventListener("click", () => {
+spin.addEventListener("click",async () => {
 
   const premiu = alegePremiu();
 
@@ -56,7 +72,7 @@ spin.addEventListener("click", () => {
       origin: { y: 0.6 }
     });
 
-    alert("🎉 Ai câștigat:\n\n" + premiu.text);
+   await salveazaPremiu(premiu.text); alert("🎉 Ai câștigat:\n\n" + premiu.text);
 
   }, 5000);
 
